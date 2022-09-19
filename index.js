@@ -5,10 +5,11 @@ const cors = require('cors');
 const productsRouter = require('./routes/productsRouter');
 const usersRouter = require('./routes/usersRouter');
 const registerRouter = require('./routes/registerRouter');
-
-dotenv.config();
+const ordersRouter = require('./routes/ordersRouter');
+const auth = require('./middlewares/auth');
 
 const app = express();
+dotenv.config();
 app.use(express.json());
 app.use(cors());
 
@@ -22,6 +23,7 @@ app.get('/', async (req, res) => {
 app.use('/register', registerRouter);
 app.use('/products', productsRouter);
 app.use('/users', usersRouter);
+app.use('/orders', auth.authenticateToken, ordersRouter);
     
 
 //MongoDB connection
