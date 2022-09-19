@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const productsRouter = require('./routes/productsRouter');
 const usersRouter = require('./routes/usersRouter');
+const registerRouter = require('./routes/registerRouter');
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.get('/', async (req, res) => {
     
 
 //Routes
+app.use('/register', registerRouter);
 app.use('/products', productsRouter);
 app.use('/users', usersRouter);
     

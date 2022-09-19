@@ -10,16 +10,6 @@ exports.getUsers = async (req, res) => {
     }
 };
 
-exports.createUser = async (req, res) => {
-    try {
-        const response = await new users(req.body).save();
-        res.send(response);
-    } catch (err) {
-        console.log(err);
-        res.status(403).send(err.message);
-    }
-};
-
 exports.updateUser = async (req, res) => {
     try {
         const response = await users.findByIdAndUpdate(req.params.id, req.body, {
