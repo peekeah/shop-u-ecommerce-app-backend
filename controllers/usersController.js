@@ -15,10 +15,11 @@ exports.updateUser = async (req, res) => {
         const response = await users.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
         });
+        if(!response) return res.status(403).send({msg : 'User with provoided id not found'});
         res.send(response);
     } catch (err) {
         console.log(err);
-        res.status(403).send({ message: "user not found" });
+        res.status(403).send({ message: "Error while updating" });
     }
 };
 
