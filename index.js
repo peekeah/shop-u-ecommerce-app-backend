@@ -7,24 +7,23 @@ const usersRouter = require('./routes/usersRouter');
 const registerRouter = require('./routes/registerRouter');
 const ordersRouter = require('./routes/ordersRouter');
 const auth = require('./middlewares/auth');
+const razorpayRouter = require('./routes/razorpayRouter')
 
 const app = express();
 dotenv.config();
 app.use(express.json());
 app.use(cors());
 
-
 app.get('/', async (req, res) => {
-    res.send('Ecommerce Backend');
+    res.send({title: 'Shop U Backend'});
 })
-    
 
 //Routes
 app.use('/register', registerRouter);
 app.use('/products', productsRouter);
 app.use('/users', usersRouter);
 app.use('/orders', auth.authenticateToken, ordersRouter);
-    
+app.use('/razorpay', razorpayRouter)   
 
 //MongoDB connection
 const URL = process.env.DB_URL;
@@ -34,3 +33,6 @@ mongoose.connect(URL, () => {
         console.log(`Server Started On ${PORT}`);
     })
 })
+
+
+
