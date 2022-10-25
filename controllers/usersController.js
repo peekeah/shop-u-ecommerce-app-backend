@@ -10,6 +10,17 @@ exports.getUsers = async (req, res) => {
     }
 };
 
+exports.getUser = async (req, res) => {
+    try {
+        const id = req.body.tokenData._doc._id;
+        const response = await users.findById(id);
+        res.send(response)
+    } catch (err) {
+        console.log(err);
+        res.status(403).send(err.message);
+    }
+};
+
 exports.updateUser = async (req, res) => {
     try {
         const response = await users.findByIdAndUpdate(req.params.id, req.body, {
