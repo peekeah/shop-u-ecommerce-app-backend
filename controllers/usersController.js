@@ -23,7 +23,8 @@ exports.getUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
     try {
-        const response = await users.findByIdAndUpdate(req.params.id, req.body, {
+        const id = req.body.tokenData._doc._id;
+        const response = await users.findByIdAndUpdate(id, req.body, {
             new: true,
         });
         if(!response) return res.status(403).send({msg : 'User with provoided id not found'});
@@ -36,10 +37,25 @@ exports.updateUser = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
     try {
-        const response = await users.deleteOne({ _id: req.params.id });
+        const id = req.body.tokenData._doc._id;
+        const response = await users.deleteOne({ _id: id });
         res.send(response);
     } catch (err) {
         console.log(err);
         res.status(403).send({ message: "user not found" });
     }
 };
+
+exports.addAddress = async (req, res) => {
+    try {
+        const id = req.body.tokenData._doc._id;
+        const response = await users.findOne({ _id: id});
+        let addresses = response.addresses;
+        addresses.push(req.body);
+        response.save();
+        res.send(response);
+    } catch (err) {
+        console.log(err);
+        res.status(403).send({ message: err.message });
+    }
+}
