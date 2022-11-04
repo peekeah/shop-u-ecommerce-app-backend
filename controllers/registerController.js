@@ -16,7 +16,10 @@ exports.signup = async (req, res) => {
 
         //Storing data into Database
         const response = await new users(req.body).save();
-        res.send(response);
+
+        //Generating Token
+        const token = jwt.sign({ ...response }, process.env.JWT_SECRET, { expiresIn: '1d' });
+        res.send(token);
 
     } catch (err) {
         console.log(err);
