@@ -59,3 +59,19 @@ exports.addAddress = async (req, res) => {
         res.status(403).send({ message: err.message });
     }
 }
+
+exports.deleteAddress = async (req, res) => {
+    try {
+        const userId = req.body.tokenData._doc._id;
+        const addressId = req.params.id;
+        const response = await users.findOne({ _id: userId});
+        let addresses = response.addresses.filter(s => s._id !== addressId);
+        addresses.push(req.body);
+        response.save();
+        res.send({msg: 'Successfully deleted'});
+
+    } catch (err) {
+        console.log(err);
+        res.status(403).send({ message: err.message });
+    }
+}

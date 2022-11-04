@@ -11,6 +11,7 @@ const schema = new Schema({
     email: { type: 'string', required: true },
     password: { type: 'string', required: true},
     role: {type: 'string', default:'user'},
+    mobile_no: { type: 'number'},
     addresses: [addressSchema]
 });
 

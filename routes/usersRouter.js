@@ -10,6 +10,7 @@ router.delete("/delete", auth.authenticateToken, users.deleteUser);
 
 router.get("/get-user", auth.authenticateToken, users.getUser);
 router.patch("/add-address", auth.authenticateToken, users.addAddress);
+router.delete("/delete-address/:id", auth.authenticateToken, users.deleteAddress);
 
 //Admin authorization to get all users
 router.get("/get-users", [auth.authenticateToken, auth.authorizeUser], users.getUsers);
