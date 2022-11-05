@@ -24,6 +24,12 @@ exports.getUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
     try {
         const id = req.body.tokenData._doc._id;
+
+        // converting mobile no into number
+        if(req.body.mobile_no) {
+            req.body.mobile_no = parseInt(req.body.mobile_no);
+        }
+
         const response = await users.findByIdAndUpdate(id, req.body, {
             new: true,
         });

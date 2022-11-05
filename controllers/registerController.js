@@ -14,6 +14,11 @@ exports.signup = async (req, res) => {
         const password = await bcrypt.hash(req.body.password, salt);
         req.body.password = password;
 
+        // converting mobile no to number
+        if(req.body.mobile_no) {
+            req.body.mobile_no = parseInt(req.body.mobile_no);
+        }
+
         //Storing data into Database
         const response = await new users(req.body).save();
 
