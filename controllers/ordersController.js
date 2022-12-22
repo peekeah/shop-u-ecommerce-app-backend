@@ -19,3 +19,13 @@ exports.getOrders = async (req, res) => {
         res.status(403).send(error.message);
     }
 }
+
+exports.getOrdersByEmail = async(req, res) => {
+    try {
+        const response = await orders.find({ customer_email: req.body.tokenData._doc.email });
+        res.send(response);
+    } catch (err) {
+        console.log(err);
+        res.status(403).send(err);
+    }
+}

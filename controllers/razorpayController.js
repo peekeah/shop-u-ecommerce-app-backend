@@ -8,7 +8,7 @@ exports.createPayment = async (req, res) => {
   const userData = req.body.tokenData._doc;
 
   const payment_capture = 1;
-  const amount = 499;
+  const amount = req.body.order_total;
   const currency = "INR";
   const receipt = shortid.generate();
 
@@ -35,7 +35,7 @@ exports.createPayment = async (req, res) => {
       currency: response.currency,
       name: userData.name,
       email: userData.email,
-      total: req.body.total * 100,
+      total: req.body.order_total * 100,
       mobile_no: userData.mobile_no,
     });
   } catch (err) {
@@ -44,13 +44,10 @@ exports.createPayment = async (req, res) => {
 };
 
 
-
+// NOTE: Webhooks for further update
 exports.verify = async (req, res) => {
   const crypto = require("crypto");
-  const secret = await process.env.RAZORPAY_WEBHOOK_SECRET;  
-
-  // console.log(req.body)
-
+  const secret = await process.env.RAZORPAY_WEBHOOK_SECRET; 
 
 	const shasum = crypto.createHmac('sha256', secret)
 	shasum.update(JSON.stringify(req.body))
