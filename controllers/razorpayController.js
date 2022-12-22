@@ -10,7 +10,7 @@ exports.createPayment = async (req, res) => {
   const payment_capture = 1;
   const amount = req.body.order_total;
   const currency = "INR";
-  const receipt = shortid.generate();
+  const receipt = shortid();
 
   const options = {
     amount: amount * 100,
@@ -30,8 +30,9 @@ exports.createPayment = async (req, res) => {
 
     const response = await razorpay.orders.create(options);
 
+
     res.send({
-      id: response.id,
+      order_id: receipt,
       currency: response.currency,
       name: userData.name,
       email: userData.email,
