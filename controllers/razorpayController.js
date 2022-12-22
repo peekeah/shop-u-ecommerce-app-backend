@@ -13,7 +13,7 @@ exports.createPayment = async (req, res) => {
   const receipt = shortid();
 
   const options = {
-    amount: amount * 100,
+    amount: parseInt(amount * 100),
     currency,
     receipt,
     payment_capture,
@@ -36,7 +36,7 @@ exports.createPayment = async (req, res) => {
       currency: response.currency,
       name: userData.name,
       email: userData.email,
-      total: req.body.order_total * 100,
+      total: parseInt(req.body.order_total * 100),
       mobile_no: userData.mobile_no,
     });
   } catch (err) {
