@@ -1,4 +1,4 @@
-const purchase = require('../models/purchaseModel');
+const orders = require('../models/orderModel');
 
 
 exports.createPurchase = async(req, res) => {
@@ -9,7 +9,7 @@ exports.createPurchase = async(req, res) => {
             ...req.body
         }
         
-        const response = await new purchase(orderData).save();
+        const response = await new orders(orderData).save();
         res.send(response);
     } catch (err) {
         console.log(err);
@@ -20,7 +20,7 @@ exports.createPurchase = async(req, res) => {
 exports.userPurchase = async(req, res) => {
     try {
         const email = req.body.tokenData._doc.email;
-        const response = await purchase.find({ customer_email: email });
+        const response = await orders.find({ customer_email: email });
         res.send(response);
     } catch (err) {
         console.log(err);

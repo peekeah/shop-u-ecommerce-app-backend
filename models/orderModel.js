@@ -26,4 +26,4 @@ const schema = new mongoose.Schema({
     shipping_address: addressSchema,
 });
 
-module.exports = mongoose.model("purchase", schema, "purchase");
+module.exports = mongoose.model("orders", schema);

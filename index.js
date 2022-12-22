@@ -5,9 +5,8 @@ const cors = require('cors');
 const productsRouter = require('./routes/productsRouter');
 const usersRouter = require('./routes/usersRouter');
 const registerRouter = require('./routes/registerRouter');
-const ordersRouter = require('./routes/ordersRouter');
+const ordersRouter = require('./routes/orderRouter');
 const razorpayRouter = require('./routes/razorpayRouter');
-const purchaseRouter = require('./routes/purchaseRouter');
 const auth = require('./middlewares/auth');
 
 const app = express();
@@ -25,7 +24,6 @@ app.use('/products', productsRouter);
 app.use('/users', usersRouter);
 app.use('/orders', auth.authenticateToken, ordersRouter);
 app.use('/razorpay', razorpayRouter);   
-app.use('/purchase', auth.authenticateToken, purchaseRouter);
 
 
 //MongoDB connection
