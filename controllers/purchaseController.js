@@ -16,3 +16,14 @@ exports.createPurchase = async(req, res) => {
         res.status(403).send(err);
     }
 }
+
+exports.userPurchase = async(req, res) => {
+    try {
+        const email = req.body.tokenData._doc.email;
+        const response = await purchase.find({ customer_email: email });
+        res.send(response);
+    } catch (err) {
+        console.log(err);
+        res.status(403).send(err);
+    }
+}
